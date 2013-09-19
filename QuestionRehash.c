@@ -2,37 +2,30 @@
 #include <stdlib.h>
 #include <string.h>
 
+
+
 /*
-	This is from memory, not consulting any sources. 
+	This was the second attempt using pointers and pointer arithmetic. 
 
-	List of things I would want to reference or check if I 
-	wasn't doing this from memory (i.e. my memory is weak):
-		1) tmp character
-		2) sizeof function. For char does it include the end of line termination character?
-		3) pointer arithmetic - See reversUsingPTRS()
-		4) malloc and char. Is the (+1) needed?
-			Answer through reasoning: malloc(sizeof(char) * 5) gives space for 5 char sized 
-			blocks of memory with an index base of 0; the +1 would be needed for '/0'.
-			For example: "hello" would need an extra space to be "hello'/0'"
-
+	This code does not change the original string.
 */
-
 char* reverseUsingPTRS(char* s){
 
 
-	int size = strlen(s);		//assuming it returns count of char in array not EOL terminator.
-	char* newString = (char*)malloc((size + 1) * sizeof(char));  	//(+1)for end of line terminator (may not need this) 
+	int size = strlen(s);		
+	char* newString = (char*)malloc((size + 1) * sizeof(char));  	//(+1)for end of line terminator 
 	
 	int count = 0;
 
+	/*
+		I think this is how pointer arithmetic works. I would want to reference 
+		a source to make sure its the correct syntax. (turns out I was correct).
+
+		(size-1) needed for 0 based index
+	*/
+
 	while(count < size){
 
-		/*
-			I think this is how pointer arithmetic works. I would want to reference 
-			a source to make sure its the correct syntax.
-
-			(size-1) needed for 0 based index
-		*/
 		*(newString + count) = *(s + ((size-1)-count));			
 		count++;
 	}
@@ -42,12 +35,15 @@ char* reverseUsingPTRS(char* s){
 
 }
 
+/*
+	This was the first version of the code.
+		works even with an even or odd number of array elements.
 
-
-
+		This code changes the original string
+*/
 char* reverseInPlace(char* s){
 
-	char tmp = 'h'; 		// this is not how I have done this in the past
+	char tmp = 'h'; 		
 	int size = strlen(s);
 	int i;
 
