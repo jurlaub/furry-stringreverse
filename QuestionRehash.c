@@ -6,8 +6,7 @@
 
 /*
 	This was the second attempt using pointers and pointer arithmetic. 
-
-	This code does not change the original string.
+	This code does not change the original string. 
 */
 char* reverseUsingPTRS(char* s){
 
