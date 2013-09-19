@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 /*
 	This is from memory, not consulting any sources. 
@@ -18,9 +20,9 @@
 char* reverseUsingPTRS(char* s){
 
 
-	int size = sizeof(s);		//assuming it returns count of char in array not EOL terminator.
-	char* newString = (char)malloc(sizeof(char) * size + 1);  	//(+1)for end of line terminator (may not need this) 
-
+	int size = strlen(s);		//assuming it returns count of char in array not EOL terminator.
+	char* newString = (char*)malloc((size + 1) * sizeof(char));  	//(+1)for end of line terminator (may not need this) 
+	
 	int count = 0;
 
 	while(count < size){
@@ -34,7 +36,7 @@ char* reverseUsingPTRS(char* s){
 		*(newString + count) = *(s + ((size-1)-count));			
 		count++;
 	}
-	*(newString + size) = '/0';   // 
+	*(newString + size) = '\0';   // 
 
 	return newString;
 
@@ -45,8 +47,8 @@ char* reverseUsingPTRS(char* s){
 
 char* reverseInPlace(char* s){
 
-	char* tmp = 'h'; 		// this is not how I have done this in the past
-	int size = sizeof(s);
+	char tmp = 'h'; 		// this is not how I have done this in the past
+	int size = strlen(s);
 	int i;
 
 	for(i = 0; i < size/2; i++){
@@ -62,11 +64,18 @@ char* reverseInPlace(char* s){
 
 int main(void){
 
-	char* test = "hello";
+	char test[] = "hello";
+	char *pt;
+	pt = test;
+	
 
-	printf("Reverse in place:\n %s \n %s\n",test, reverseInPlace(test) );
-	printf("Reverse using pointers:\n %s \n %s", test, reversUsingPTRS(test) );
+
+	printf("Reverse in place:\n %s \n", pt );
+	printf(" %s\n", reverseInPlace(pt) );
+	printf("Reverse using pointers:\n %s \n %s \n", pt, reverseUsingPTRS(pt));
+	
 
 
 	return 0;
 }
+
